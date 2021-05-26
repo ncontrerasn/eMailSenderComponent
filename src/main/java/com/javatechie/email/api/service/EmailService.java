@@ -1,6 +1,8 @@
 package com.javatechie.email.api.service;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -50,14 +52,32 @@ public class EmailService {
 	public void llenarMandarMensaje(MailRequest request, Map<String, Object> model, Session session, String dir, String personal) throws IOException, MessagingException, TemplateException {
 		MimeMessage message = new MimeMessage(session);
 
+		String variables = request.getVariables();
+		String valores = request.getValores();
+		ArrayList<String> listaVariables = new ArrayList<>(Arrays.asList(variables.split(",")));
+		ArrayList<String> listaValores = new ArrayList<>(Arrays.asList(valores.split(",")));
+
 		message.setFrom(new InternetAddress(dir, personal));
-		message.setSubject(request.getSubject());
+		String asunto = request.getSubject();
+		for (int i = 0; i < listaVariables.size(); i++)
+			asunto = asunto.replace(listaVariables.get(i), listaValores.get(i));
+
+		asunto = asunto.replace("{","");
+		asunto = asunto.replace("}","");
+		asunto = asunto.replace("%","");
+		message.setSubject(asunto);
 
 		//TO se puede cambiar a CC
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getTo()));
 
 		String nombre = "target/classes/templates/plantilla.ftl";
 		String plantilla = request.getPlantilla();
+
+		plantilla = plantilla.replace("%","$");
+		char c = 'a';
+
+		for (int i = 0; i < listaVariables.size(); i++)
+			plantilla = plantilla.replace(listaVariables.get(i), String.valueOf(c++));
 
 		try {
 			FileWriter myWriter = new FileWriter(nombre);

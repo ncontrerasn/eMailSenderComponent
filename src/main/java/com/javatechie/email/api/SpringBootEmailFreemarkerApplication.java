@@ -30,8 +30,9 @@ public class SpringBootEmailFreemarkerApplication {
 		String valores = request.getValores();
 		ArrayList<String> listaVariables = new ArrayList<>(Arrays.asList(variables.split(",")));
 		ArrayList<String> listaValores = new ArrayList<>(Arrays.asList(valores.split(",")));
-		for(int i = 0; i <  listaVariables.size(); i++)
-			model.put(listaVariables.get(i), listaValores.get(i));
+		char c = 'a';
+		for(int i = 0; i <  listaValores.size(); i++)
+			model.put(String.valueOf(c++), listaValores.get(i));
 		return model;
 	}
 
