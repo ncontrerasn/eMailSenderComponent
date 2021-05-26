@@ -4,12 +4,11 @@ import lombok.Data;
 
 @Data
 public class MailRequest {
-	
-	private String name;
+
 	private String to;
-	private String from;
 	private String subject;
 	private String plantilla;
-	private String number;
+	private String valores;
+	private String variables;
 
 }

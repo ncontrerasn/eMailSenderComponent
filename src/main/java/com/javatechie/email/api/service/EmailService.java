@@ -37,7 +37,20 @@ public class EmailService {
 		props.setProperty("mail.smtp.quitwait", "false");
 	}
 
-	public void cuerpoDatos(MailRequest request, Map<String, Object> model, MimeMessage message) throws IOException, MessagingException, TemplateException {
+	public Session sesion(String usuario, String clave){
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(usuario, clave);
+					}
+				});
+		return session;
+	}
+
+	public void llenarMandarMensaje(MailRequest request, Map<String, Object> model, Session session, String dir, String personal) throws IOException, MessagingException, TemplateException {
+		MimeMessage message = new MimeMessage(session);
+
+		message.setFrom(new InternetAddress(dir, personal));
 		message.setSubject(request.getSubject());
 
 		//TO se puede cambiar a CC
@@ -70,40 +83,16 @@ public class EmailService {
 	}
 
 	public MailResponse sendEmail(MailRequest request, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
-
 		propiedades();
-
-		Session session = Session.getInstance(props,
-				new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication("uifce.apps.test2@gmail.com", "oxfsouitcmnjjtqs");
-					}
-				});
-
-		MimeMessage message = new MimeMessage(session);
-		message.setFrom(new InternetAddress("uifce.apps.test2@gmail.com", "UIFCE"));
-
-		cuerpoDatos(request, model, message);
-
+		Session session = sesion("uifce.apps.test2@gmail.com", "oxfsouitcmnjjtqs");
+		llenarMandarMensaje(request, model, session, "uifce.apps.test2@gmail.com", "UIFCE");
 		return response;
 	}
 
 	public MailResponse sendEmail2(MailRequest request, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
-
 		propiedades();
-
-		Session session = Session.getInstance(props,
-				new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication("uifce.apps.test@gmail.com", "dbzafmlgawmmqwrm");
-					}
-				});
-
-		MimeMessage message = new MimeMessage(session);
-		message.setFrom(new InternetAddress("uifce.apps.test@gmail.com", "UACE"));
-
-		cuerpoDatos(request, model, message);
-
+		Session session = sesion("uifce.apps.test@gmail.com", "dbzafmlgawmmqwrm");
+		llenarMandarMensaje(request, model, session, "uifce.apps.test@gmail.com", "UACE");
 		return response;
 	}
 
