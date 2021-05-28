@@ -1,4 +1,4 @@
-package com.javatechie.email.api;
+package com.ncontrerasn.email.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

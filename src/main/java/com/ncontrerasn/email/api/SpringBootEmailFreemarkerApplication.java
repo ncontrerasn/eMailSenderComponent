@@ -1,10 +1,14 @@
-package com.javatechie.email.api;
+package com.ncontrerasn.email.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.ncontrerasn.email.api.dto.MailRequest;
+import com.ncontrerasn.email.api.dto.MailResponse;
+import com.ncontrerasn.email.api.service.EmailService;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.javatechie.email.api.dto.MailRequest;
-import com.javatechie.email.api.dto.MailResponse;
-import com.javatechie.email.api.service.EmailService;
+
 import javax.mail.MessagingException;
 
 @SpringBootApplication
