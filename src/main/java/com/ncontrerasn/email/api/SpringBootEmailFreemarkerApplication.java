@@ -38,6 +38,8 @@ public class SpringBootEmailFreemarkerApplication {
 		return model;
 	}
 
+	//una petición POST por cada servidor SMTP
+
 	@PostMapping("/sendingEmail")
 	public MailResponse sendEmail(@RequestBody MailRequest request) throws MessagingException, IOException, TemplateException {
 		Map<String, Object> model = modelo(request);

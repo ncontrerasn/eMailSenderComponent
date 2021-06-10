@@ -38,6 +38,7 @@ public class EmailService {
 		props.setProperty("mail.smtp.quitwait", "false");
 	}
 
+	//iniciar sesión servidor SMTP
 	public Session sesion(String usuario, String clave){
 		Session session = Session.getInstance(props,
 				new javax.mail.Authenticator() {
@@ -51,6 +52,7 @@ public class EmailService {
 	public void llenarMandarMensaje(MailRequest request, Map<String, Object> model, Session session, String dir, String personal) throws IOException, MessagingException, TemplateException {
 		MimeMessage message = new MimeMessage(session);
 
+		//obtener la lista de variables y valores de la petición
 		String variables = request.getVariables();
 		String valores = request.getValores();
 		ArrayList<String> listaVariables = new ArrayList<>(Arrays.asList(variables.split(",")));
@@ -58,9 +60,12 @@ public class EmailService {
 
 		message.setFrom(new InternetAddress(dir, personal));
 		String asunto = request.getSubject();
+
+		//reemplzar variables para pasar a la pnatilla
 		for (int i = 0; i < listaVariables.size(); i++)
 			asunto = asunto.replace(listaVariables.get(i), listaValores.get(i));
 
+		//limpiar de símbolos no deseados
 		asunto = asunto.replace("{","");
 		asunto = asunto.replace("}","");
 		asunto = asunto.replace("%","");
@@ -69,15 +74,19 @@ public class EmailService {
 		//TO se puede cambiar a CC
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getTo()));
 
+		//escribir la plantilla
 		String nombre = "target/classes/templates/plantilla.ftl";
 		String plantilla = request.getPlantilla();
 
+		//reemplazar % por $ para que se puedan reemplzar los valores de la plantilla
 		plantilla = plantilla.replace("%","$");
 		char c = 'a';
 
+		//reemplzar las variables para evitar el problema de nombres de varialbes con .
 		for (int i = 0; i < listaVariables.size(); i++)
 			plantilla = plantilla.replace(listaVariables.get(i), String.valueOf(c++));
 
+		//escribir el encabezado del HTML
 		try {
 			FileWriter myWriter = new FileWriter(nombre);
 			myWriter.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
@@ -93,9 +102,15 @@ public class EmailService {
 		}catch (IOException e) {}
 
 		Template t = config.getTemplate("plantilla.ftl");
+
+		//reemplazar las variables de la plantilla
 		String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 		message.setContent(html, "text/html; charset=utf-8");
+
+		//mandar mensaje
 		Transport.send(message);
+
+		//respuesta del POST
 		response.setMessage("mail send to : " + request.getTo());
 		response.setStatus(Boolean.TRUE);
 	}
