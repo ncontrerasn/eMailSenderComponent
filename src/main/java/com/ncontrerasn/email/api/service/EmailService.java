@@ -71,8 +71,14 @@ public class EmailService {
 		asunto = asunto.replace("%","");
 		message.setSubject(asunto);
 
-		//TO se puede cambiar a CC
+		//TO
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(request.getTo()));
+
+		//CC
+		message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(request.getCc()));
+
+		//BCC
+		message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(request.getBcc()));
 
 		//escribir la plantilla
 		String nombre = "target/classes/templates/plantilla.ftl";

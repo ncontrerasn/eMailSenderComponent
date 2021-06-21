@@ -6,6 +6,8 @@ import lombok.Data;
 public class MailRequest {
 
 	private String to;
+	private String cc;
+	private String bcc;
 	private String subject;
 	private String plantilla;
 	private String valores;
