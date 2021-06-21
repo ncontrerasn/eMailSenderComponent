@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ncontrerasn.email.api.dto.MailRequest;
 import com.ncontrerasn.email.api.dto.MailResponse;
 import com.ncontrerasn.email.api.service.EmailService;
@@ -13,9 +14,9 @@ import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 
@@ -40,16 +41,20 @@ public class SpringBootEmailFreemarkerApplication {
 
 	//una petición POST por cada servidor SMTP
 
-	@PostMapping("/sendingEmail")
-	public MailResponse sendEmail(@RequestBody MailRequest request) throws MessagingException, IOException, TemplateException {
-		Map<String, Object> model = modelo(request);
-		return service.sendEmail(request, model);
+	@PostMapping(value = "/sendingEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public MailResponse sendEmail(@RequestParam String request, @RequestPart MultipartFile html) throws MessagingException, IOException, TemplateException {
+		ObjectMapper mapper = new ObjectMapper();
+		MailRequest req = mapper.readValue(request, MailRequest.class);
+		Map<String, Object> model = modelo(req);
+		return service.sendEmail(req, html, model);
 	}
 
 	@PostMapping("/sendingEmail2")
-	public MailResponse sendEmail2(@RequestBody MailRequest request) throws MessagingException, IOException, TemplateException{
-		Map<String, Object> model = modelo(request);
-		return service.sendEmail2(request, model);
+	public MailResponse sendEmail2(@RequestParam String request, @RequestPart MultipartFile html) throws MessagingException, IOException, TemplateException {
+		ObjectMapper mapper = new ObjectMapper();
+		MailRequest req = mapper.readValue(request, MailRequest.class);
+		Map<String, Object> model = modelo(req);
+		return service.sendEmail2(req, html, model);
 	}
 
 	public static void main(String[] args) {
