@@ -133,7 +133,7 @@ public class EmailService {
 		Transport.send(message);
 
 		//respuesta del POST
-		response.setMessage("mail send to : " + request.getTo());
+		response.setMessage("mail send to: " + request.getTo() + ", cc: " + request.getCc() + ", bcc: " + request.getBcc());
 		response.setStatus(Boolean.TRUE);
 	}
 
@@ -147,7 +147,7 @@ public class EmailService {
 	public MailResponse sendEmail2(MailRequest request, MultipartFile html, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
 		propiedades();
 		Session session = sesion("uifce.apps.test@gmail.com", "dbzafmlgawmmqwrm");
-		llenarMandarMensaje(request,html, model, session, "uifce.apps.test@gmail.com", "UACE");
+		llenarMandarMensaje(request, html, model, session, "uifce.apps.test@gmail.com", "UACE");
 		return response;
 	}
 
