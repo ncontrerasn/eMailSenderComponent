@@ -1,9 +1,9 @@
 package com.ncontrerasn.email.api.service;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -15,7 +15,7 @@ import com.ncontrerasn.email.api.dto.MailResponse;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import java.util.Properties;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class EmailService {
@@ -49,7 +49,7 @@ public class EmailService {
 		return session;
 	}
 
-	public void llenarMandarMensaje(MailRequest request, Map<String, Object> model, Session session, String dir, String personal) throws IOException, MessagingException, TemplateException {
+	public void llenarMandarMensaje(MailRequest request, MultipartFile htmlP, Map<String, Object> model, Session session, String dir, String personal) throws IOException, MessagingException, TemplateException {
 		MimeMessage message = new MimeMessage(session);
 
 		//obtener la lista de variables y valores de la petición
@@ -76,7 +76,23 @@ public class EmailService {
 
 		//escribir la plantilla
 		String nombre = "target/classes/templates/plantilla.ftl";
-		String plantilla = request.getPlantilla();
+		String plantilla = "";
+
+		//convertir el archivo recibido del POST a un archivo tipo file
+		MultipartFile multiFile = htmlP;
+		File file = new File(System.getProperty("user.dir") + "/files/plantilla.txt");
+		multiFile.transferTo(file);
+
+		try {
+			Scanner myReader = new Scanner(file);
+			while (myReader.hasNextLine()) {
+				plantilla += myReader.nextLine();
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 
 		//reemplazar % por $ para que se puedan reemplzar los valores de la plantilla
 		plantilla = plantilla.replace("%","$");
@@ -115,17 +131,17 @@ public class EmailService {
 		response.setStatus(Boolean.TRUE);
 	}
 
-	public MailResponse sendEmail(MailRequest request, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
+	public MailResponse sendEmail(MailRequest request, MultipartFile html, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
 		propiedades();
 		Session session = sesion("uifce.apps.test2@gmail.com", "oxfsouitcmnjjtqs");
-		llenarMandarMensaje(request, model, session, "uifce.apps.test2@gmail.com", "UIFCE");
+		llenarMandarMensaje(request, html, model, session, "uifce.apps.test2@gmail.com", "UIFCE");
 		return response;
 	}
 
-	public MailResponse sendEmail2(MailRequest request, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
+	public MailResponse sendEmail2(MailRequest request, MultipartFile html, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
 		propiedades();
 		Session session = sesion("uifce.apps.test@gmail.com", "dbzafmlgawmmqwrm");
-		llenarMandarMensaje(request, model, session, "uifce.apps.test@gmail.com", "UACE");
+		llenarMandarMensaje(request,html, model, session, "uifce.apps.test@gmail.com", "UACE");
 		return response;
 	}
 
