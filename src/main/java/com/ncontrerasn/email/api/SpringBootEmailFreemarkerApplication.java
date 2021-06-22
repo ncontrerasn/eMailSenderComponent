@@ -27,6 +27,7 @@ public class SpringBootEmailFreemarkerApplication {
 	@Autowired
 	private EmailService service;
 
+	//hacer el mapa con las listas de variables y valores
 	Map<String, Object> modelo(MailRequest request){
 		Map<String, Object> model = new HashMap<>();
 		String variables = request.getVariables();
@@ -41,7 +42,7 @@ public class SpringBootEmailFreemarkerApplication {
 
 	//una petición POST por cada servidor SMTP
 
-	@PostMapping(value = "/sendingEmail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "/sendingEmail")
 	public MailResponse sendEmail(@RequestParam String request, @RequestPart MultipartFile html) throws MessagingException, IOException, TemplateException {
 		ObjectMapper mapper = new ObjectMapper();
 		MailRequest req = mapper.readValue(request, MailRequest.class);

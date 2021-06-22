@@ -58,6 +58,7 @@ public class EmailService {
 		ArrayList<String> listaVariables = new ArrayList<>(Arrays.asList(variables.split(",")));
 		ArrayList<String> listaValores = new ArrayList<>(Arrays.asList(valores.split(",")));
 
+		//remitente y asunto
 		message.setFrom(new InternetAddress(dir, personal));
 		String asunto = request.getSubject();
 
@@ -84,7 +85,7 @@ public class EmailService {
 		String nombre = "target/classes/templates/plantilla.ftl";
 		String plantilla = "";
 
-		//convertir el archivo recibido del POST a un archivo tipo file
+		//convertir el archivo recibido multipart a un archivo tipo file
 		MultipartFile multiFile = htmlP;
 		File file = new File(System.getProperty("user.dir") + "/files/plantilla.txt");
 		multiFile.transferTo(file);
