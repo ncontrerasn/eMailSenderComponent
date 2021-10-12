@@ -43,7 +43,9 @@ public class SpringBootEmailFreemarkerApplication {
 	//una petición POST por cada servidor SMTP
 
 	@PostMapping(value = "/sendingEmail")
-	public MailResponse sendEmail(@RequestParam String request, @RequestPart MultipartFile html) throws MessagingException, IOException, TemplateException {
+	public MailResponse sendEmail( @RequestPart MultipartFile html, @RequestParam String request) throws MessagingException, IOException, TemplateException {
+            System.out.println("hola como estas");    
+            System.out.println(request);
 		ObjectMapper mapper = new ObjectMapper();
 		MailRequest req = mapper.readValue(request, MailRequest.class);
 		Map<String, Object> model = modelo(req);
@@ -56,6 +58,24 @@ public class SpringBootEmailFreemarkerApplication {
 		MailRequest req = mapper.readValue(request, MailRequest.class);
 		Map<String, Object> model = modelo(req);
 		return service.sendEmail2(req, html, model);
+	}
+        
+        @PostMapping("/sendingEmail3")
+	public String sendEmail3(@RequestParam String request,@RequestParam String request2) throws MessagingException, IOException, TemplateException {
+      
+
+
+        System.out.println(request+request2);
+            return request+request2;
+	}
+        
+         @PostMapping("/sendingEmail4")
+	public String sendEmail4(@RequestPart MultipartFile html) throws MessagingException, IOException, TemplateException {
+        
+            
+
+        System.out.println(html);
+            return null;
 	}
 
 	public static void main(String[] args) {

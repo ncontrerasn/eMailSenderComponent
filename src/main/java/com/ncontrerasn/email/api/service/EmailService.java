@@ -15,9 +15,11 @@ import com.ncontrerasn.email.api.dto.MailResponse;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+
 public class EmailService {
 
 	@Autowired
@@ -115,7 +117,7 @@ public class EmailService {
 			myWriter.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
 					"<head>\n" +
 					"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n" +
-					"<title>Plantilla Correo UIFCE</title>\n" +
+					"<title>Plantilla Correo UACE</title>\n" +
 					"</head>\n" +
 					"<body>");
 			myWriter.write(plantilla);
@@ -140,16 +142,17 @@ public class EmailService {
 
 	public MailResponse sendEmail(MailRequest request, MultipartFile html, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
 		propiedades();
-		Session session = sesion("uifce.apps.test2@gmail.com", "oxfsouitcmnjjtqs");
-		llenarMandarMensaje(request, html, model, session, "uifce.apps.test2@gmail.com", "UIFCE");
+		Session session = sesion("2arrcc17@gmail.com", "dbzzzcavksmvualu");
+		llenarMandarMensaje(request, html, model, session, "uifcce.apps.test2@gmail.com", "Soporte Actas");
 		return response;
 	}
 
 	public MailResponse sendEmail2(MailRequest request, MultipartFile html, Map<String, Object> model) throws IOException, MessagingException, TemplateException {
 		propiedades();
-		Session session = sesion("uifce.apps.test@gmail.com", "dbzafmlgawmmqwrm");
-		llenarMandarMensaje(request, html, model, session, "uifce.apps.test@gmail.com", "UACE");
+		Session session = sesion("2arrcc17@gmail.com", "dbzzzcavksmvualu");
+		llenarMandarMensaje(request, html, model, session, "uifcce.apps.test@gmail.com", "Soporte Actas");
 		return response;
 	}
+        
 
 }

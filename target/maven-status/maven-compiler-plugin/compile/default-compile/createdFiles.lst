@@ -1,0 +1,6 @@
+com\ncontrerasn\email\api\SpringBootEmailFreemarkerApplication.class
+com\ncontrerasn\email\api\service\EmailService$1.class
+com\ncontrerasn\email\api\config\ApiConfig.class
+com\ncontrerasn\email\api\dto\MailRequest.class
+com\ncontrerasn\email\api\dto\MailResponse.class
+com\ncontrerasn\email\api\service\EmailService.class

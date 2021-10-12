@@ -1,0 +1,7 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Plantilla Correo UACE</title>
+</head>
+<body><h2>Nueva solicitud de soporte de tipo: <span style="background-color: #317399; color: #ffffff;"> ${c} </span></h2><p style="font-size: 1em;">Se ha creado la solicitud de soporte de la Aplicaci&oacute;n de Actas para el usuario con correo electr&oacute;nico ${b} con el nombre <span style="background-color: #ccffff;">${a}</span>&nbsp;</p><p style="font-size: 1em;">El <strong>mensaje</strong> se muestra a continuaci&oacute;n:</p><blockquote><p style="font-size: 1.5em;"><em>${d}</em></p></blockquote><div style="color: #7f7f7f;"><div><br />Unidad de Inform&aacute;tica<br />Facultad de Ciencias Econ&oacute;micas<br />Universidad Nacional de Colombia<br /><div>Sede Bogot&aacute;</div></div></div><hr /><div style="text-align: center;"><em>Si desea proveer&nbsp;informaci&oacute;n&nbsp;adicional o comentarios con&nbsp;relaci&oacute;n&nbsp;a esta solicitud por favor&nbsp;envi&eacute;&nbsp;un correo o&nbsp;ingrese a su cuenta para realizar una solicitud al respecto con&nbsp;relaci&oacute;n&nbsp;al servicio.<br /><em>(fce.unal.edu.co/servicios-informaticos)</em></em></div></body>
+</html>

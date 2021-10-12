@@ -1,1 +1,13 @@
-<h3><strong>Estimado %{recipient.name.first},</strong></h3><br />Una solicitud de servicio ha sido creada y asignada al numero %{ticket.number}. La solicitud sera atendida y se har&aacute; el seguimiento tan pronto como sea posible.&nbsp;Usted puede ver el progreso de la solicitud on-line. <br /><br /><div style="color:rgb(127, 127, 127)"> <div><br />Unidad de Inform&aacute;tica<br />Facultad de Ciencias Econ&oacute;micas<br />Universidad Nacional de Colombia<br /><div>Sede Bogot&aacute; </div> </div> <br /></div> <hr /><div style="text-align:center"><em>Si desea proveer&nbsp;informaci&oacute;n&nbsp;adicional o comentarios con&nbsp;relaci&oacute;n&nbsp;a esta solicitud por favor&nbsp;envi&eacute;&nbsp;un correo o&nbsp;ingrese a su cuenta para realizar una solicitud al respecto con&nbsp;relaci&oacute;n&nbsp;al servicio.<br /><em>(fce.unal.edu.co/servicios-informaticos)</em></em></div>
+<h2>Nueva solicitud de soporte de tipo: <span style="background-color: #317399; color: #ffffff;"> %{type} </span></h2>
+<p style="font-size: 1em;">Se ha creado la solicitud de soporte de la Aplicaci&oacute;n de Actas para el usuario con correo electr&oacute;nico %{email} con el nombre <span style="background-color: #ccffff;">%{name}</span>&nbsp;</p>
+<p style="font-size: 1em;">El <strong>mensaje</strong> se muestra a continuaci&oacute;n:</p>
+<blockquote>
+<p style="font-size: 1.5em;"><em>%{message}</em></p>
+</blockquote>
+<div style="color: #7f7f7f;">
+<div><br />Unidad de Inform&aacute;tica<br />Facultad de Ciencias Econ&oacute;micas<br />Universidad Nacional de Colombia<br />
+<div>Sede Bogot&aacute;</div>
+</div>
+</div>
+<hr />
+<div style="text-align: center;"><em>Si desea proveer&nbsp;informaci&oacute;n&nbsp;adicional o comentarios con&nbsp;relaci&oacute;n&nbsp;a esta solicitud por favor&nbsp;envi&eacute;&nbsp;un correo o&nbsp;ingrese a su cuenta para realizar una solicitud al respecto con&nbsp;relaci&oacute;n&nbsp;al servicio.<br /><em>(fce.unal.edu.co/servicios-informaticos)</em></em></div>
